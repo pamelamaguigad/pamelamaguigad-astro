@@ -1,31 +1,47 @@
 ---
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import "../styles/global.css";
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import myProfile from '../assets/home-hero-pam.png';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Pamela Maguigad</title>
+<BaseLayout>
+  <!-- Hero Section -->
+  <section class="w-full max-w-[1920px] mx-auto px-6 md:px-20 py-12 lg:py-24 flex flex-col lg:flex-row items-center lg:items-stretch gap-12 lg:gap-24">
+    
+    <!-- Image -->
+    <div class="w-full lg:w-1/2 flex justify-center lg:justify-start">
+		<Image 
+			src={myProfile} 
+			alt="Pamela Maguigad" 
+			width={800} 
+			height={600} 
+			loading="lazy"
+			class="w-full max-w-[680px] h-auto object-cover rounded-sm" 
+		/>
+    </div>
 
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
+    <!-- Content -->
+    <div class="w-full lg:w-1/2 flex flex-col justify-center items-start gap-12">
+      
+		<img 
+			src="/assets/brand-name.svg" 
+			alt="Pamela Maguigad" 
+			class="w-full max-w-md h-auto object-contain" 
+		/>
 
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400..800&display=swap" rel="stylesheet">
-	</head>
-	<body class="bg-white min-h-screen flex flex-col font-syne">
+      <!-- Text Content -->
+      <div class="flex flex-col gap-8 max-w-[540px]">
+        <h1 class="text-zinc-900 text-4xl md:text-5xl font-normal leading-tight">
+          Architectural Designer &<br />
+          Multidisciplinary Creative
+        </h1>
+        
+        <p class="text-zinc-900 text-lg md:text-xl font-light leading-relaxed">
+          I design spaces, tell stories, and build websites—bringing ideas into focus and following through on the details.
+        </p>
+      </div>
 
-		<Header />
-
-		<main class="flex-grow w-full">
-			<slot /> 
-		</main>
-
-    	<Footer />
-
-	</body>
-</html>
+    </div>
+    
+  </section>
+</BaseLayout>
