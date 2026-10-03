@@ -17,15 +17,26 @@ import "../styles/global.css";
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400..800&display=swap" rel="stylesheet">
 	</head>
-	<body class="bg-white min-h-screen flex flex-col font-syne">
+	<body class="bg-brand-cream font-syne">
 
-		<Header />
+		<!-- Required div for overflow on iOS -->
+    	<div class="w-full min-h-svh flex flex-col items-center overflow-x-hidden relative">
 
-		<main class="flex-grow w-full">
-			<slot /> 
-		</main>
+			<div class="w-[3249px] h-[781px] left-[-200px] top-[-360px] absolute">
+				<img 
+					src="/assets/brand-background-overlay.svg" 
+				/>
+			</div>
 
-    	<Footer />
+			<Header />
+
+			<main class="w-full flex flex-col items-center">
+				<slot /> 
+			</main>
+
+			<Footer />
+
+		</div>
 
 	</body>
 </html>

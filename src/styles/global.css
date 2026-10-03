@@ -2,4 +2,8 @@
 
 @theme {
   --font-syne: "Syne", sans-serif;
+
+  --color-brand-pink: #E04343;
+  --color-brand-cream: #F7F5F0;
+  --color-brand-black: #1C1F1E;
 }
