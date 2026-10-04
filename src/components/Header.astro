@@ -2,48 +2,63 @@
 
 ---
 
-<header class="fixed top-0 left-0 z-50 w-full h-24 px-6 md:px-20 py-8 flex justify-between items-center bg-transparent">
+<header class="w-full max-w-[1920px] fixed top-0 center-0 z-50 px-6 md:px-12 xl:px-16 2xl:px-20 py-12 flex justify-between items-center bg-transparent">
   
-  <!-- Logo / Name -->
-  <a href="/" class="text-brand-black text-base font-bold uppercase tracking-wide hover:opacity-80 transition-opacity">
-    Pamela Maguigad
-  </a>
+    <!-- Logo / Name -->
+    <a href="/" class="text-brand-black text-base font-bold uppercase tracking-wide hover:opacity-80 transition-opacity">
+        Pamela Maguigad
+    </a>
 
-  <!-- Navigation -->
-  <nav>
-    <ul class="flex items-center gap-6 md:gap-8">
-      <li>
-        <a href="/" class="text-brand-black text-base font-bold uppercase hover:text-gray-500 transition-colors">
-          Home
-        </a>
-      </li>
-      <li>
-        <a href="/about" class="text-brand-black text-base font-bold uppercase hover:text-gray-500 transition-colors">
-          About
-        </a>
-      </li>
-      <li>
-        <a href="/cv" class="text-brand-black text-base font-bold uppercase hover:text-gray-500 transition-colors">
-          CV
-        </a>
-      </li>
-      <li>
-        <a href="/contact" class="text-brand-black text-base font-bold uppercase hover:text-gray-500 transition-colors">
-          Contact
-        </a>
-      </li>
+    <!-- Navigation -->
+    <nav>
+        <ul class="max-lg:hidden flex items-center gap-6 md:gap-8">
+            <li>
+                <a href="/" class="text-brand-black text-base font-bold uppercase hover:text-gray-500 transition-colors">
+                Home
+                </a>
+            </li>
+            <li>
+                <a href="/about" class="text-brand-black text-base font-bold uppercase hover:text-gray-500 transition-colors">
+                About
+                </a>
+            </li>
+            <li>
+                <a href="/cv" class="text-brand-black text-base font-bold uppercase hover:text-gray-500 transition-colors">
+                CV
+                </a>
+            </li>
+            <li>
+                <a href="/contact" class="text-brand-black text-base font-bold uppercase hover:text-gray-500 transition-colors">
+                Contact
+                </a>
+            </li>
 
-      <!-- Language Switcher -->
-      <li class="flex items-center gap-1 ml-2 md:ml-4">
-        <button class="text-brand-black text-base font-bold uppercase hover:text-gray-600 transition-colors">
-          EN
+            <!-- Language Switcher -->
+            <li class="flex items-center gap-1 ml-2 md:ml-4">
+                <button class="text-brand-black text-base font-bold uppercase hover:text-gray-600 transition-colors cursor-pointer">
+                EN
+                </button>
+                <span class="text-brand-black/30 text-base font-bold uppercase">/</span>
+                <button class="text-brand-black/30 text-base font-bold uppercase hover:text-black transition-colors cursor-pointer">
+                FR
+                </button>
+            </li>
+        </ul>
+
+        <!-- Hamburger Menu -->
+        <button id="mobile-menu-button" type="button" class="lg:hidden cursor-pointer flex items-center" aria-label="Open menu">
+            <!-- Hamburger Icon Container -->
+            <div class="w-6 h-4 flex flex-col justify-between">
+                <!-- Top line (75% width, aligned right) -->
+                <span class="w-3/4 h-[3px] bg-current self-end transition-all duration-300"></span>
+                
+                <!-- Middle line (100% width) -->
+                <span class="w-full h-[3px] bg-current transition-all duration-300"></span>
+                
+                <!-- Bottom line (75% width, aligned left) -->
+                <span class="w-3/4 h-[3px] bg-current self-start transition-all duration-300"></span>
+            </div>
         </button>
-        <span class="text-brand-black/30 text-base font-bold uppercase">/</span>
-        <button class="text-brand-black/30 text-base font-bold uppercase hover:text-black transition-colors">
-          FR
-        </button>
-      </li>
-    </ul>
-  </nav>
+    </nav>
 
 </header>

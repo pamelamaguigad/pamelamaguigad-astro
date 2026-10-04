@@ -1,9 +1,12 @@
-@import url('https://googleapis.com');
+@import url('https://fonts.googleapis.com/css2?family=Stack+Sans+Text:wght@200..700&family=Syne:wght@400..800&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-syne: "Syne", sans-serif;
+  --font-header: "Syne", sans-serif;
   --font-body: "Stack Sans Text", sans-serif;
+
+  --breakpoint-3xl: 120rem;
 
   --color-brand-pink: #E04343;
   --color-brand-cream: #F7F5F0;
