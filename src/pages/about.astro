@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout>
+    <!-- Hero Section -->
+    <section class="w-full max-w-[1920px] h-dvh flex flex-col lg:flex-row gap-0 p-0">
+
+        <div class="w-full lg:w-1/2 flex flex-col justify-start items-start gap-8 lg:gap-14">
+            <h1 class="text-brand-pink text-6xl md:text-8xl font-normal font-['Rousie']">
+            all about Pam
+            </h1>
+            <p class="text-4xl md:text-6xl font-normal font-['Syne'] leading-tight">
+            I shape the story.<br/>Then I make it happen.
+            </p>
+        </div>
+
+        <!-- Hero Image -->
+        <div class="w-full lg:w-1/2 max-w-[640px] flex justify-center items-center">
+            <img 
+                src="/assets/about-hero-pam.png" 
+                alt="Pamela Maguigad" 
+                class="w-full h-auto object-cover rounded-sm shadow-lg" 
+            />
+        </div>
+
+    </section>
+
+    <!-- 3-Column Info Section -->
+    <section class="w-full max-w-[1920px] grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16 px-6 md:px-20 py-16 md:py-28 mx-auto">
+
+        <!-- Column 1 -->
+        <article class="flex flex-col justify-start items-start gap-8">
+            <h2 class="text-4xl md:text-5xl font-normal font-body leading-tight">Who I Am</h2>
+            <div class="flex flex-col gap-4 text-lg md:text-xl font-light font-['Stack_Sans_Text'] leading-relaxed">
+                <p>I’m Pam, an architectural designer and multidisciplinary creative based in Hong Kong. My work spans spaces, visual storytelling, and the web. I’m interested in how people experience things: how they move through a place, understand an idea, or find their next step on a website.</p>
+                <p>Architecture is the foundation of how I think. It has taught me to connect the bigger picture with the smallest details, work through constraints, and bring different perspectives together. That same curiosity takes me into film, visual identity, and web development—not as separate interests, but as different ways to give an idea form.</p>
+            </div>
+        </article>
+
+        <!-- Column 2 (Staggered on Desktop) -->
+        <article class="flex flex-col justify-start items-start gap-8 lg:mt-32">
+            <h2 class="text-4xl md:text-5xl font-normal font-['Syne'] leading-tight">What I Do</h2>
+            <div class="flex flex-col gap-4 text-lg md:text-xl font-light font-['Stack_Sans_Text'] leading-relaxed">
+                <p>At my current professional practice, I work on commercial and mixed-use architecture, including large-scale luxury retail developments. My role combines design development, coordination, and visual communication: developing proposals, preparing client presentations, and helping teams move towards clear, considered submissions.</p>
+                <p>My work also extends into the stories around those spaces. I’ve directed and produced architectural pitch films and helped develop exhibition concepts into physical installations through supplier and organiser coordination.</p>
+                <p>Alongside architecture, I design and build for the web. For my recent web project, I brought visual identity, copy, website design, and development together in a live multilingual website. I enjoy both setting the creative direction and doing the hands-on work that makes it real.</p>
+            </div>
+        </article>
+
+        <!-- Column 3 (Staggered on Desktop) -->
+        <article class="flex flex-col justify-start items-start gap-8 lg:mt-64">
+            <h2 class="text-4xl md:text-5xl font-normal font-['Syne'] leading-tight">Away From The Desk</h2>
+            <div class="flex flex-col gap-4 text-lg md:text-xl font-light font-['Stack_Sans_Text'] leading-relaxed">
+                <p>Making time away from the screen keeps life balanced. I’m a fitness enthusiast and runner, and I’m happiest when there’s a trail or mountain in the plan. I’ve taken part in the MoonTrekker night race, summited Mount Kinabalu, and done volunteer work in the mountains of Nepal.</p>
+                <p>Travel is another constant interest. I like exploring how cities fit together, noticing the buildings and everyday spaces that give a place its character, and experiencing different cultures beyond the itinerary.</p>
+                <p>I’m also an avid language learner, currently working towards C1 French from B2. Between design, travel, and languages, there’s always something new to understand.</p>
+            </div>
+        </article>
+
+    </section>
+</BaseLayout>
