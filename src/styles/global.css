@@ -16,7 +16,7 @@
 
 @layer base {
   h1 {
-    @apply font-brand text-[52px] sm:text-[72px] md:text-[96px] lg:text-[112px] text-brand-pink;
+    @apply font-brand text-[64px] sm:text-[72px] md:text-[96px] lg:text-[112px] text-brand-pink;
   }
   h2 {
     @apply text-[32px] md:text-[44px] xl:text-[48px] font-medium font-header leading-tight text-brand-black;
