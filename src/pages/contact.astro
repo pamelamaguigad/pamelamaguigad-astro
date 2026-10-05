@@ -5,30 +5,103 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <BaseLayout>
     <section class="w-full max-w-[1920px] mx-auto flex flex-col gap-0 px-6 lg:px-20 mt-30">
         
-        <!-- Page Title -->
-        <h1 class="py-20">
+        <!-- Page Title (Animates immediately on load) -->
+        <h1 class="py-20 hero-animate-up">
             say hello!
         </h1>
         
-        <!-- Intro Text -->
-        <div class="w-full max-w-3xl flex flex-col gap-8">
-            <p class="text-zinc-900 text-xl md:text-3xl font-light font-['Stack_Sans_Text'] leading-relaxed">
-                I enjoy exchanging ideas about architecture, design, language learning, and the web.
-            </p>
-            <p class="text-zinc-900 text-xl md:text-3xl font-light font-['Stack_Sans_Text'] leading-relaxed">
-                If something here sparked your curiosity, I’d love to hear from you.
-            </p>
-        </div>
+        <!-- Content Wrapper for Large Screens -->
+        <div class="flex flex-col gap-16 xl:gap-10 pb-20">
+            
+            <!-- Intro Text -->
+            <div class="w-full max-w-xl flex flex-col gap-8">
+                <p class="text-zinc-900 text-xl font-light font-body leading-relaxed scroll-reveal">
+                    I enjoy exchanging ideas about architecture, design, language learning, and the web.
+                </p>
+                <p class="text-zinc-900 text-xl font-light font-body leading-relaxed scroll-reveal scroll-delay-100">
+                    If something here sparked your curiosity, I’d love to hear from you. Drop me an email.
+                </p>
+            </div>
 
-        <!-- Email Link -->
-        <div class="w-full pt-10 md:pt-20 flex justify-start lg:justify-end">
-            <a 
-                href="mailto:hello@pamelamaguigad.com" 
-                class="text-[32px] md:text-[44px] xl:text-[48px] font-medium font-header leading-tight text-brand-pink hover:text-brand-black transition-colors"
-            >
-                hello@pamelamaguigad.com
-            </a>
+            <!-- Email Link -->
+            <div class="w-full flex justify-start pb-2">
+                <a 
+                    href="mailto:hello@pamelamaguigad.com" 
+                    class="text-[22px] sm:text-[32px] md:text-[44px] xl:text-[48px] font-medium font-header leading-tight text-brand-pink hover:text-brand-black transition-colors whitespace-nowrap scroll-reveal scroll-delay-200"
+                >
+                    hello@pamelamaguigad.com
+                </a>
+            </div>
+            
         </div>
         
     </section>
 </BaseLayout>
+
+<style>
+    /* --- Hero Load Animations (Keyframes) --- */
+    .hero-animate-up {
+        opacity: 0;
+        animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    
+    .hero-animate-fade {
+        opacity: 0;
+        animation: fadeIn 1.2s ease-out forwards;
+    }
+
+    .hero-delay-100 { animation-delay: 150ms; }
+    .hero-delay-200 { animation-delay: 300ms; }
+    .hero-delay-300 { animation-delay: 500ms; }
+
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(40px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    /* --- Scroll Reveal Animations (CSS Transitions) --- */
+    .scroll-reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .scroll-reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Added extra delays for the staggered effect on this page */
+    .scroll-delay-100 { transition-delay: 150ms; }
+    .scroll-delay-200 { transition-delay: 300ms; }
+    .scroll-delay-300 { transition-delay: 500ms; }
+</style>
+
+<script>
+    // Using astro:page-load ensures the observer runs correctly with View Transitions
+    document.addEventListener("astro:page-load", () => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("is-visible");
+                } else {
+                    // Optional: Remove this else block if you only want the animation to happen once
+                    entry.target.classList.remove("is-visible");
+                }
+            });
+        }, {
+            root: null,
+            rootMargin: "0px",
+            threshold: 0.15
+        });
+
+        const revealElements = document.querySelectorAll(".scroll-reveal");
+        revealElements.forEach((el) => observer.observe(el));
+    });
+</script>
