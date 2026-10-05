@@ -13,3 +13,15 @@
   --color-brand-cream: #F7F5F0;
   --color-brand-black: #1C1F1E;
 }
+
+@layer base {
+  h1 {
+    @apply font-brand text-[52px] sm:text-[72px] md:text-[96px] lg:text-[112px] text-brand-pink;
+  }
+  h2 {
+    @apply text-[32px] sm:text-[44px] xl:text-[48px] font-medium font-header leading-tight text-brand-black;
+  }
+  p {
+    @apply text-[16px] lg:text-[20px] font-light font-body leading-[190%] text-brand-black;
+  }
+}
