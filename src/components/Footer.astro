@@ -2,44 +2,55 @@
 
 ---
 
-<!-- lg:fixed lg:bottom-0 lg:left-0 z-50 -->
+<!-- Superseded: lg:fixed lg:bottom-0 lg:left-0 z-50 -->
 
-<footer class="w-full max-w-[1920px] relative w-full flex flex-col lg:flex-row justify-start lg:justify-between lg:items-center gap-6 px-6 md:px-12 2xl:px-20 xl:px-16 py-12 bg-transparent">
-  
-  <!-- Copyright -->
-  <div class="text-black text-base font-medium">
-    &copy; 2026 Pamela Maguigad
-  </div>
+<div class="w-full max-w-[1920px] mx-auto p-4 md:p-0">
+    
+    <footer class="flex flex-col lg:flex-row justify-end lg:justify-between lg:items-center gap-12 lg:gap-8 px-8 py-12 md:px-12 xl:px-16 2xl:px-20 bg-brand-black md:bg-transparent text-white md:text-brand-black rounded-xl md:rounded-none">
+        
+        <!-- Copyright & Credit -->
+        <div class="flex flex-col lg:flex-row gap-2 lg:gap-8 lg:items-center">
+            <!-- Copyright -->
+            <div class="text-base opacity-80 md:opacity-100">
+                &copy; 2026 Pamela Maguigad
+            </div>
 
-  <!-- Credit -->
-  <div class="text-black text-base font-medium">
-    Designed & Built by <a href="/" class="hover:text-brand-pink">Pam</a>
-  </div>
+            <!-- Credit -->
+            <div class="text-base opacity-80 md:opacity-100">
+                Designed & Built by <a href="/" class="hover:text-brand-pink transition-colors font-medium">Pam</a>
+            </div>
+        </div>
 
-  <!-- Social Links -->
-  <nav aria-label="Social Media">
-    <ul class="flex flex-col lg:flex-row flex-wrap justify-start lg:justify-center lg:items-center gap-6 md:gap-8">
-      <li>
-        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="text-black text-[28px] sm:text-[36px] md:text-[40px] lg:text-base font-medium hover:text-brand-pink transition-colors">
-          LinkedIn
-        </a>
-      </li>
-      <li>
-        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="text-black text-[28px] sm:text-[36px] md:text-[40px] lg:text-base font-medium hover:text-brand-pink transition-colors">
-          GitHub
-        </a>
-      </li>
-      <li>
-        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="text-black text-[28px] sm:text-[36px] md:text-[40px] lg:text-base font-medium hover:text-brand-pink transition-colors">
-          Instagram
-        </a>
-      </li>
-      <li>
-        <a href="https://pinterest.com" target="_blank" rel="noopener noreferrer" class="text-black text-[28px] sm:text-[36px] md:text-[40px] lg:text-base font-medium hover:text-brand-pink transition-colors">
-          Pinterest
-        </a>
-      </li>
-    </ul>
-  </nav>
+        <!-- Socials -->
+        <div class="flex flex-col">
+            <p class="md:hidden mb-4 text-sm uppercase tracking-widest opacity-70">Find me on:</p>
 
-</footer>
+            <!-- Social Links -->
+            <nav aria-label="Social Media">
+                <ul class="flex flex-col md:flex-row flex-wrap justify-start lg:justify-center lg:items-center gap-4 md:gap-8">
+                    <li>
+                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="text-[28px] md:text-base font-medium hover:text-brand-pink transition-colors">
+                            LinkedIn
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="text-[28px] md:text-base font-medium hover:text-brand-pink transition-colors">
+                            GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="text-[28px] md:text-base font-medium hover:text-brand-pink transition-colors">
+                            Instagram
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://pinterest.com" target="_blank" rel="noopener noreferrer" class="text-[28px] md:text-base font-medium hover:text-brand-pink transition-colors">
+                            Pinterest
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        
+    </footer>
+</div>

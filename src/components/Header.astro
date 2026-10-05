@@ -5,60 +5,123 @@
 <header class="w-full max-w-[1920px] fixed top-0 center-0 z-50 px-6 md:px-12 xl:px-16 2xl:px-20 py-12 flex justify-between items-center bg-transparent">
   
     <!-- Logo / Name -->
-    <a href="/" class="text-brand-black text-base font-bold uppercase tracking-wide hover:opacity-80 transition-opacity">
+    <a href="/" class="text-brand-black text-base font-bold font-syne uppercase tracking-wide hover:text-brand-pink transition-colors relative z-50">
         Pamela Maguigad
     </a>
 
     <!-- Navigation -->
     <nav>
+        <!-- Desktop Menu -->
         <ul class="max-lg:hidden flex items-center gap-6 md:gap-8">
             <li>
-                <a href="/" class="text-brand-black text-base font-bold uppercase hover:text-gray-500 transition-colors">
+                <a href="/" class="text-brand-black text-base font-bold uppercase hover:text-brand-pink transition-colors">
                 Home
                 </a>
             </li>
             <li>
-                <a href="/about" class="text-brand-black text-base font-bold uppercase hover:text-gray-500 transition-colors">
+                <a href="/about" class="text-brand-black text-base font-bold uppercase hover:text-brand-pink transition-colors">
                 About
                 </a>
             </li>
             <li>
-                <a href="/cv" class="text-brand-black text-base font-bold uppercase hover:text-gray-500 transition-colors">
+                <a href="/cv" class="text-brand-black text-base font-bold uppercase hover:text-brand-pink transition-colors">
                 CV
                 </a>
             </li>
             <li>
-                <a href="/contact" class="text-brand-black text-base font-bold uppercase hover:text-gray-500 transition-colors">
+                <a href="/contact" class="text-brand-black text-base font-bold uppercase hover:text-brand-pink transition-colors">
                 Contact
                 </a>
             </li>
 
             <!-- Language Switcher -->
             <li class="flex items-center gap-1 ml-2 md:ml-4">
-                <button class="text-brand-black text-base font-bold uppercase hover:text-gray-600 transition-colors cursor-pointer">
+                <button class="text-brand-black text-base font-bold uppercase hover:text-brand-pink transition-colors cursor-pointer">
                 EN
                 </button>
                 <span class="text-brand-black/30 text-base font-bold uppercase">/</span>
-                <button class="text-brand-black/30 text-base font-bold uppercase hover:text-black transition-colors cursor-pointer">
+                <button class="text-brand-black/30 text-base font-bold uppercase hover:text-brand-pink transition-colors cursor-pointer">
                 FR
                 </button>
             </li>
         </ul>
 
-        <!-- Hamburger Menu -->
-        <button id="mobile-menu-button" type="button" class="lg:hidden cursor-pointer flex items-center" aria-label="Open menu">
-            <!-- Hamburger Icon Container -->
-            <div class="w-6 h-4 flex flex-col justify-between">
-                <!-- Top line (75% width, aligned right) -->
-                <span class="w-3/4 h-[3px] bg-current self-end transition-all duration-300"></span>
+        <!-- Hamburger Menu Button -->
+        <button id="mobile-menu-button" type="button" class="lg:hidden cursor-pointer flex items-center group relative z-50" aria-label="Open menu">
+            <div class="w-6 h-4 flex flex-col justify-between relative">
+                <!-- Top line -->
+                <span class="w-3/4 h-[3px] bg-brand-black group-hover:w-full group-hover:bg-brand-pink self-end transition-all duration-300 origin-center group-[.open]:w-full group-[.open]:rotate-45 group-[.open]:translate-y-[6.5px]"></span>
                 
-                <!-- Middle line (100% width) -->
-                <span class="w-full h-[3px] bg-current transition-all duration-300"></span>
+                <!-- Middle line -->
+                <span class="w-full h-[3px] bg-brand-black group-hover:bg-brand-pink transition-all duration-300 group-[.open]:opacity-0"></span>
                 
-                <!-- Bottom line (75% width, aligned left) -->
-                <span class="w-3/4 h-[3px] bg-current self-start transition-all duration-300"></span>
+                <!-- Bottom line -->
+                <span class="w-3/4 h-[3px] bg-brand-black group-hover:w-full group-hover:bg-brand-pink self-start transition-all duration-300 origin-center group-[.open]:w-full group-[.open]:-rotate-45 group-[.open]:-translate-y-[6.5px]"></span>
             </div>
         </button>
     </nav>
-
 </header>
+
+<!-- Mobile Menu Overlay -->
+<div id="mobile-overlay" class="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 opacity-0 pointer-events-none transition-opacity duration-300 lg:hidden"></div>
+
+<!-- Mobile Side Panel -->
+<aside id="mobile-panel" class="fixed top-0 right-0 h-screen w-3/4 max-w-sm bg-white shadow-2xl z-40 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col justify-center px-10 lg:hidden">
+    <ul class="flex flex-col gap-8">
+        <li>
+            <a href="/" class="text-brand-black text-2xl font-bold uppercase hover:text-brand-pink transition-colors">
+            Home
+            </a>
+        </li>
+        <li>
+            <a href="/about" class="text-brand-black text-2xl font-bold uppercase hover:text-brand-pink transition-colors">
+            About
+            </a>
+        </li>
+        <li>
+            <a href="/cv" class="text-brand-black text-2xl font-bold uppercase hover:text-brand-pink transition-colors">
+            CV
+            </a>
+        </li>
+        <li>
+            <a href="/contact" class="text-brand-black text-2xl font-bold uppercase hover:text-brand-pink transition-colors">
+            Contact
+            </a>
+        </li>
+        
+        <!-- Mobile Language Switcher -->
+        <li class="flex items-center gap-2 mt-4 pt-8 border-t border-gray-200">
+            <button class="text-brand-black text-xl font-bold uppercase hover:text-brand-pink transition-colors cursor-pointer">
+            EN
+            </button>
+            <span class="text-brand-black/30 text-xl font-bold uppercase">/</span>
+            <button class="text-brand-black/30 text-xl font-bold uppercase hover:text-brand-pink transition-colors cursor-pointer">
+            FR
+            </button>
+        </li>
+    </ul>
+</aside>
+
+<!-- JavaScript to handle toggling -->
+<script>
+    // Add "!" at the end to tell TypeScript these elements definitely exist
+    const menuBtn = document.getElementById('mobile-menu-button')!;
+    const mobilePanel = document.getElementById('mobile-panel')!;
+    const overlay = document.getElementById('mobile-overlay')!;
+
+    function toggleMenu() {
+        // Toggle the 'open' class on the button for the X animation
+        menuBtn.classList.toggle('open');
+        
+        // Slide the panel in/out
+        mobilePanel.classList.toggle('translate-x-full');
+        
+        // Fade the overlay in/out
+        overlay.classList.toggle('opacity-0');
+        overlay.classList.toggle('pointer-events-none');
+    }
+
+    // Add click events to both the button and the dark overlay
+    menuBtn.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', toggleMenu);
+</script>
