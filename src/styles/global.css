@@ -3,6 +3,7 @@
 
 @theme {
   --font-syne: "Syne", sans-serif;
+  --font-brand: var(--font-rousie), sans-serif;
   --font-header: "Syne", sans-serif;
   --font-body: "Stack Sans Text", sans-serif;
 

@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig, fontProviders } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
 
@@ -7,5 +7,22 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   vite: {
     plugins: [tailwindcss()]
-  }
+  },
+  fonts: [
+    {
+      name: 'Rousie',
+      provider: fontProviders.local(), // Recommended Astro built-in helper
+      cssVariable: '--font-rousie',
+      fallbacks: ['sans-serif'],
+      options: {
+        variants: [
+          {
+            src: ['./src/fonts/rousie.woff2'],
+            weight: '400',
+            style: 'normal',
+          },
+        ],
+      },
+    }
+  ]
 });

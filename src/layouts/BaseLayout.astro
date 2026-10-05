@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { Font } from 'astro:assets';
 import "../styles/global.css";
 ---
 
@@ -22,6 +23,8 @@ import "../styles/global.css";
 		<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
 		<!-- Android & PWA Manifest linkage -->
 		<link rel="manifest" href="/site.webmanifest" />
+
+		<Font cssVariable="--font-rousie" preload />
 
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
