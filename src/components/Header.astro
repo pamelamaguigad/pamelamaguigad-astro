@@ -1,5 +1,5 @@
 ---
-
+// Astro frontmatter
 ---
 
 <header class="w-full max-w-[1920px] fixed top-0 center-0 z-50 px-6 md:px-12 xl:px-16 2xl:px-20 py-12 flex justify-between items-center bg-transparent">
@@ -180,31 +180,38 @@
 </style>
 
 <!-- JavaScript to handle toggling -->
+<!-- JavaScript to handle toggling -->
 <script>
-    const mainLogo = document.getElementById('main-logo')!;
-    const menuBtn = document.getElementById('mobile-menu-button')!;
-    const mobilePanel = document.getElementById('mobile-panel')!;
-    const overlay = document.getElementById('mobile-overlay')!;
+    document.addEventListener('astro:page-load', () => {
+        // Add the '!' at the end of each getElementById to satisfy TypeScript
+        const mainLogo = document.getElementById('main-logo')!;
+        const menuBtn = document.getElementById('mobile-menu-button')!;
+        const mobilePanel = document.getElementById('mobile-panel')!;
+        const overlay = document.getElementById('mobile-overlay')!;
 
-    function toggleMenu() {
-        // Toggle custom class to hide the main logo (overriding the animation lock)
-        mainLogo.classList.toggle('menu-open');
+        // Safety check to ensure elements exist on the current page
+        if (!menuBtn || !overlay || !mobilePanel || !mainLogo) return;
 
-        // Toggle the 'open' class on the button for the X animation
-        menuBtn.classList.toggle('open');
-        
-        // Slide the panel in/out
-        mobilePanel.classList.toggle('translate-x-full');
-        
-        // Toggle 'is-open' to trigger the staggered CSS animations on the links and mobile logo
-        mobilePanel.classList.toggle('is-open');
-        
-        // Fade the overlay in/out
-        overlay.classList.toggle('opacity-0');
-        overlay.classList.toggle('pointer-events-none');
-    }
+        function toggleMenu() {
+            // Toggle custom class to hide the main logo (overriding the animation lock)
+            mainLogo.classList.toggle('menu-open');
 
-    // Add click events to both the button and the dark overlay
-    menuBtn.addEventListener('click', toggleMenu);
-    overlay.addEventListener('click', toggleMenu);
+            // Toggle the 'open' class on the button for the X animation
+            menuBtn.classList.toggle('open');
+            
+            // Slide the panel in/out
+            mobilePanel.classList.toggle('translate-x-full');
+            
+            // Toggle 'is-open' to trigger the staggered CSS animations on the links and mobile logo
+            mobilePanel.classList.toggle('is-open');
+            
+            // Fade the overlay in/out
+            overlay.classList.toggle('opacity-0');
+            overlay.classList.toggle('pointer-events-none');
+        }
+
+        // Add click events to both the button and the dark overlay
+        menuBtn.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', toggleMenu);
+    });
 </script>

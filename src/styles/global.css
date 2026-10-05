@@ -12,6 +12,26 @@
   --color-brand-pink: #E04343;
   --color-brand-cream: #F7F5F0;
   --color-brand-black: #1C1F1E;
+
+  --animate-page-enter: pageEnter 0.4s cubic-bezier(0.16, 2, 0.3, 1) forwards;
+  --animate-page-exit: pageExit 0.25s ease-in forwards;
+
+  @keyframes pageEnter {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes pageExit {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+}
+
+/* Bind your custom Tailwind configurations to the root transition handles */
+::view-transition-old(root) {
+  animation: var(--animate-page-exit);
+}
+::view-transition-new(root) {
+  animation: var(--animate-page-enter);
 }
 
 @layer base {
