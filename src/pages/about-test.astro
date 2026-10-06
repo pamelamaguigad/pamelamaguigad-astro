@@ -1,0 +1,217 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout>
+    
+    <!-- Dot Navigation -->
+    <nav class="fixed right-6 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-4">
+        <button data-index="0" class="nav-dot w-3 h-3 rounded-full border-2 border-zinc-900 bg-transparent transition-all duration-300 active-dot" aria-label="Go to Hero"></button>
+        <button data-index="1" class="nav-dot w-3 h-3 rounded-full border-2 border-zinc-900 bg-transparent transition-all duration-300" aria-label="Go to Who I Am"></button>
+        <button data-index="2" class="nav-dot w-3 h-3 rounded-full border-2 border-zinc-900 bg-transparent transition-all duration-300" aria-label="Go to What I Do"></button>
+        <button data-index="3" class="nav-dot w-3 h-3 rounded-full border-2 border-zinc-900 bg-transparent transition-all duration-300" aria-label="Go to Away From The Desk"></button>
+        <button data-index="4" class="nav-dot w-3 h-3 rounded-full border-2 border-zinc-900 bg-transparent transition-all duration-300" aria-label="Go to CTA"></button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="scroll-section min-h-[100svh] w-full max-w-[1920px] relative z-30 flex flex-col lg:flex-row justify-center overflow-hidden">
+
+        <div class="w-full flex flex-col justify-start items-start gap-12 px-10 md:px-12 lg:px-16 2xl:px-0 py-20 2xl:pt-50">
+            <h1 class="leading-[90%] hero-animate-up">all about Pam</h1>
+            <h2 class="hero-animate-up hero-delay-100">I shape the story.<br/>Then I make it happen.</h2>
+        </div>
+        <div class="bg-gray-200 w-full flex">
+            <img src="/assets/about-hero-pam.png" alt="Pamela Maguigad" class="w-full h-[50vh] md:h-full object-cover" />
+        </div>
+    </section>
+
+    <!-- Who I Am Section -->
+    <section id="who-i-am" class="scroll-section min-h-[100svh] w-full max-w-[1920px] relative z-30 flex flex-col lg:flex-row justify-center overflow-hidden">
+    
+        <article class="w-full flex flex-col justify-start items-start gap-12 px-10 md:px-12 lg:px-16 2xl:px-70 py-20 2xl:pt-50">
+            <h2 class="scroll-reveal text-lg text-brand-black/30">Who I Am</h2>
+            <div class="max-w-170 flex flex-col gap-4 scroll-reveal scroll-delay-100">
+                <p class="lg:text-2xl pb-6 text-brand-black font-google-sans">Hi, I’m Pam, an architectural designer and multidisciplinary creative based in Hong Kong. My work spans across spaces, visual storytelling, and the web. I’m interested in how people experience things: how they move through a place, understand an idea, or find their next step on a website.</p>
+                <p class="lg:text-2xl text-brand-black font-google-sans">Architecture is the foundation of how I think. It has taught me to connect the bigger picture with the smallest details, work through constraints, and bring different perspectives together. That same curiosity takes me into film, visual identity, and web development—not as separate interests, but as different ways to give an idea form.</p>
+            </div>
+        </article>
+
+        <div class="bg-gray-200 w-full flex">
+            <img src="/assets/about-hero-pam.png" alt="Pamela Maguigad" class="w-full h-[50vh] md:h-full object-cover" />
+        </div>
+    </section>
+
+    <!-- What I Do Section -->
+    <section id="what-i-do" class="scroll-section min-h-[100svh] w-full max-w-[1920px] relative z-30 flex flex-col justify-center px-10 md:px-12 lg:px-16 2xl:px-20 py-16 overflow-hidden">
+        <article class="w-full flex flex-col justify-start items-start gap-10">
+            <h2 class="scroll-reveal">What I Do</h2>
+            <div class="max-w-170 flex flex-col gap-4 scroll-reveal scroll-delay-100">
+                <p>At my current professional practice, I work on commercial and mixed-use architecture, including large-scale luxury retail developments. My role combines design development, coordination, and visual communication: developing proposals, preparing client presentations, and helping teams move towards clear, considered submissions.</p>
+                <p>My work also extends into the stories around those spaces. I’ve directed and produced architectural pitch films and helped develop exhibition concepts into physical installations through supplier and organiser coordination.</p>
+                <p>Alongside architecture, I design and build for the web. For my recent web project, I brought visual identity, copy, website design, and development together in a live multilingual website. I enjoy both setting the creative direction and doing the hands-on work that makes it real.</p>
+            </div>
+        </article>
+    </section>
+
+    <!-- Away From The Desk Section -->
+    <section id="away-from-desk" class="scroll-section min-h-[100svh] w-full max-w-[1920px] relative z-30 flex flex-col justify-center px-10 md:px-12 lg:px-16 2xl:px-20 py-16 overflow-hidden">
+        <article class="w-full flex flex-col justify-start items-start gap-10">
+            <h2 class="scroll-reveal">Away From The Desk</h2>
+            <div class="max-w-170 flex flex-col gap-4 scroll-reveal scroll-delay-100">
+                <p>Making time away from the screen keeps life balanced. I’m a fitness enthusiast and runner, and I’m happiest when there’s a trail or mountain in the plan. I’ve taken part in the MoonTrekker night race, summited Mount Kinabalu, and done volunteer work in the mountains of Nepal.</p>
+                <p>Travel is another constant interest. I like exploring how cities fit together, noticing the buildings and everyday spaces that give a place its character, and experiencing different cultures beyond the itinerary.</p>
+                <p>I’m also an avid language learner, currently working towards C1 French from B2. Between design, travel, and languages, there’s always something new to understand.</p>
+            </div>
+        </article>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="cta" class="scroll-section min-h-[100svh] w-full max-w-[1920px] relative z-30 flex flex-col justify-center gap-3 px-6 md:px-12 lg:px-16 2xl:px-20 py-16 scroll-reveal">
+        <p class="self-stretch text-right justify-start text-zinc-900 text-[28px] sm:text-[36px] md:text-[40px] font-normal font-header leading-tight">See how this translates into my work.</p>
+        <p class="self-stretch text-right justify-start text-zinc-900 text-[28px] sm:text-[36px] md:text-[40px] font-medium font-header underline leading-tight"><a href="/cv" class="hover:text-brand-pink transition-colors">View my experience ↗</a></p>
+    </section>
+
+</BaseLayout>
+
+<style>
+    /* Active state for the dots */
+    .active-dot {
+        background-color: #18181b; /* zinc-900 */
+        transform: scale(1.2);
+    }
+
+    /* --- Hero Load Animations --- */
+    .hero-animate-up { opacity: 0; animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .hero-animate-fade { opacity: 0; animation: fadeIn 1.2s ease-out forwards; }
+    .hero-delay-100 { animation-delay: 150ms; }
+    .hero-delay-200 { animation-delay: 300ms; }
+    .hero-delay-300 { animation-delay: 500ms; }
+
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(40px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    /* --- Scroll Reveal Animations --- */
+    .scroll-reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .scroll-reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .scroll-delay-100 { transition-delay: 150ms; }
+    
+    /* Prevent native smooth scrolling from interfering with our JS */
+    html {
+        scroll-behavior: auto !important;
+    }
+</style>
+
+<script>
+    document.addEventListener("astro:page-load", () => {
+        
+        const sections = Array.from(document.querySelectorAll('.scroll-section'));
+        const dots = document.querySelectorAll('.nav-dot');
+        let currentSectionIndex = 0;
+        let isScrolling = false;
+
+        // 1. Ultra-Snappy Easing Function (Ease In Out Expo)
+        // This creates that premium UI mockup feel: slow start, rapid middle, smooth deceleration
+        function easeInOutExpo(t) {
+            return t === 0 ? 0 : t === 1 ? 1 : t < 0.5 ? Math.pow(2, 20 * t - 10) / 2 : (2 - Math.pow(2, -20 * t + 10)) / 2;
+        }
+
+        // 2. Custom Smooth Scroll Engine
+        function smoothScrollTo(targetIndex, duration = 1200) {
+            // Prevent out of bounds or overlapping animations
+            if (isScrolling || targetIndex < 0 || targetIndex >= sections.length) return;
+            
+            isScrolling = true;
+            currentSectionIndex = targetIndex;
+            
+            const targetElement = sections[targetIndex];
+            const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY;
+            const startPosition = window.scrollY;
+            const distance = targetPosition - startPosition;
+            let startTime = null;
+
+            function animation(currentTime) {
+                if (startTime === null) startTime = currentTime;
+                const timeElapsed = currentTime - startTime;
+                const progress = Math.min(timeElapsed / duration, 1); 
+                
+                const easeProgress = easeInOutExpo(progress);
+                window.scrollTo(0, startPosition + distance * easeProgress);
+
+                if (timeElapsed < duration) {
+                    requestAnimationFrame(animation);
+                } else {
+                    // Unlock scrolling once animation finishes
+                    setTimeout(() => { isScrolling = false; }, 50);
+                }
+            }
+            requestAnimationFrame(animation);
+            updateDots(targetIndex);
+        }
+
+        // 3. Update Dot UI
+        function updateDots(activeIndex) {
+            dots.forEach((dot, index) => {
+                if (index === activeIndex) {
+                    dot.classList.add('active-dot');
+                } else {
+                    dot.classList.remove('active-dot');
+                }
+            });
+        }
+
+        // 4. Intercept Mouse Wheel / Trackpad Scrolling
+        window.addEventListener('wheel', (e) => {
+            // Prevent default browser scrolling
+            e.preventDefault();
+            
+            if (isScrolling) return;
+
+            // Determine scroll direction
+            if (e.deltaY > 0) {
+                // Scrolling down
+                smoothScrollTo(currentSectionIndex + 1);
+            } else if (e.deltaY < 0) {
+                // Scrolling up
+                smoothScrollTo(currentSectionIndex - 1);
+            }
+        }, { passive: false }); // passive: false is required to allow e.preventDefault()
+
+        // 5. Attach Click Listeners to Dots and Next Buttons
+        const navButtons = document.querySelectorAll('.nav-dot, .next-btn');
+        navButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetIndex = parseInt(btn.getAttribute('data-index'));
+                smoothScrollTo(targetIndex);
+            });
+        });
+
+        // 6. Intersection Observer for Text Reveal ONLY
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                const reveals = entry.target.querySelectorAll('.scroll-reveal');
+                if (entry.isIntersecting) {
+                    reveals.forEach(el => el.classList.add("is-visible"));
+                }
+            });
+        }, { root: null, rootMargin: "0px", threshold: 0.3 });
+
+        sections.forEach((section) => observer.observe(section));
+        
+        // Initialize first dot
+        updateDots(0);
+    });
+</script>
