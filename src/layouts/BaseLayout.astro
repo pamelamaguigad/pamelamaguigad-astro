@@ -31,7 +31,8 @@ import "../styles/global.css";
 	<body class="bg-brand-cream font-syne">
 
 		<!-- Required div for overflow on iOS -->
-    	<div class="w-full min-h-svh flex flex-col items-center overflow-x-hidden relative">
+        <!-- Using overflow clip for sticky elements -->
+    	<div class="w-full min-h-svh flex flex-col items-center overflow-x-clip relative">
 
 			<div class="w-[3249px] h-[781px] left-[-200px] top-[-360px] absolute z-20 pointer-events-none">
 				<img 
