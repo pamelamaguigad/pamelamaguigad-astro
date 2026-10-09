@@ -37,12 +37,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             
             <!-- Hero Section -->
             <section id="hero" class="scroll-section min-h-[100svh] relative z-30 flex flex-col justify-center gap-10 p-8 lg:p-20 xl:pl-50">
-                <h1 class="leading-[90%] hero-animate-up">
-                all about Pam
-                </h1>
-                <h2 class="hero-animate-up hero-delay-100">
-                    I shape the story.<br/>Then I make it happen.
-                </h2>
+                <div class="py-2">
+                    <h1 class="leading-[90%] hero-mask-slide">
+                        all about Pam
+                    </h1>
+                </div>
+                <div class="overflow-hidden py-2">
+                    <h2 class="hero-mask-slide hero-delay-100">
+                        I shape the story.<br/>Then I make it happen.
+                    </h2>
+                </div>
             </section>
 
             <!-- Who I Am Section -->
@@ -106,6 +110,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 </BaseLayout>
 
 <style>
+    /* Add the same keyframes to about.astro */
+    .hero-mask-slide {
+        transform: translateY(110%);
+        opacity: 0;
+        animation: maskSlideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .hero-delay-100 { animation-delay: 150ms; }
+
+    @keyframes maskSlideUp {
+        0% { transform: translateY(110%); opacity: 0; }
+        1% { opacity: 1; }
+        100% { transform: translateY(0); opacity: 1; }
+    }
+
     /* Active state for the dots */
     .active-dot {
         background-color: #18181b; /* zinc-900 */
@@ -178,153 +196,138 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 </style>
 
 <script>
-    function initWordHover() {
-        const textContainers = document.querySelectorAll('.hover-text-container p');
-        
-        textContainers.forEach(p => {
-            if (p.dataset.wrapped) return;
-            p.dataset.wrapped = "true";
+  // True only for a real browser load/refresh, not client-router navigations
+  let isInitialLoad = true;
 
-            const childNodes = Array.from(p.childNodes);
-            let newHTML = '';
-            
-            childNodes.forEach(node => {
-                if (node.nodeType === Node.TEXT_NODE) {
-                    const words = node.textContent.split(/(\s+)/); 
-                    words.forEach(word => {
-                        if (word.trim().length > 0) {
-                            newHTML += `<span class="hover-word">${word}</span>`;
-                        } else {
-                            newHTML += word; 
-                        }
-                    });
-                } else {
-                    newHTML += node.outerHTML;
-                }
-            });
-            
-            p.innerHTML = newHTML;
-        });
-    }
+  function initWordHover() {
+    document.querySelectorAll<HTMLParagraphElement>('.hover-text-container p').forEach((p) => {
+      if (p.dataset.wrapped) return;
+      p.dataset.wrapped = 'true';
+
+      let html = '';
+      p.childNodes.forEach((node) => {
+        if (node.nodeType === Node.TEXT_NODE) {
+          (node.textContent ?? '').split(/(\s+)/).forEach((word) => {
+            html += word.trim() ? `<span class="hover-word">${word}</span>` : word;
+          });
+        } else {
+          html += (node as Element).outerHTML;
+        }
+      });
+      p.innerHTML = html;
+    });
+  }
+
+  function initAboutPage(restoreSavedSection: boolean) {
+    const sections = Array.from(document.querySelectorAll<HTMLElement>('.scroll-section'));
+
+    // Guard: do nothing on pages other than About
+    if (!sections.length) return;
 
     initWordHover();
 
-    document.addEventListener("astro:page-load", () => {
-        
-        initWordHover();
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
-        // 1. Prevent the browser from natively restoring scroll position on refresh
-        if ('scrollRestoration' in history) {
-            history.scrollRestoration = 'manual';
+    const dots = document.querySelectorAll<HTMLButtonElement>('.nav-dot');
+    const sectionCounter = document.getElementById('section-counter');
+
+    // Restore the saved section only on refresh; arriving from another page starts at the top
+    const saved = sessionStorage.getItem('activeSectionIndex');
+    let currentSectionIndex = restoreSavedSection && saved ? parseInt(saved, 10) : 0;
+    if (!sections[currentSectionIndex]) currentSectionIndex = 0;
+
+    let isScrolling = false;
+    let rafId = 0;
+
+    // Everything registered with this signal is removed in one call on page leave
+    const controller = new AbortController();
+    const { signal } = controller;
+
+    const easeInOutExpo = (t: number) =>
+      t === 0 ? 0 : t === 1 ? 1 : t < 0.5
+        ? Math.pow(2, 20 * t - 10) / 2
+        : (2 - Math.pow(2, -20 * t + 10)) / 2;
+
+    const jumpTo = (top: number) =>
+      // 'instant' overrides the scroll-smooth class on <html>, which otherwise fights the JS animation
+      window.scrollTo({ top, behavior: 'instant' as ScrollBehavior });
+
+    function updateUI(activeIndex: number) {
+      dots.forEach((dot, i) => dot.classList.toggle('active-dot', i === activeIndex));
+      if (sectionCounter) {
+        sectionCounter.style.transform = `translateY(-${activeIndex * 1.2}em)`;
+      }
+    }
+
+    function smoothScrollTo(targetIndex: number, duration = 1200) {
+      if (isScrolling || targetIndex < 0 || targetIndex >= sections.length) return;
+
+      isScrolling = true;
+      currentSectionIndex = targetIndex;
+      sessionStorage.setItem('activeSectionIndex', String(targetIndex));
+
+      const startPosition = window.scrollY;
+      const distance = sections[targetIndex].getBoundingClientRect().top;
+      let startTime: number | null = null;
+
+      const step = (now: number) => {
+        if (startTime === null) startTime = now;
+        const progress = Math.min((now - startTime) / duration, 1);
+        jumpTo(startPosition + distance * easeInOutExpo(progress));
+
+        if (progress < 1) {
+          rafId = requestAnimationFrame(step);
+        } else {
+          setTimeout(() => { isScrolling = false; }, 50);
         }
+      };
 
-        const sections = Array.from(document.querySelectorAll('.scroll-section'));
-        const dots = document.querySelectorAll('.nav-dot');
-        const sectionCounter = document.getElementById('section-counter');
-        
-        // 2. Retrieve the saved section index from sessionStorage (default to 0 if none exists)
-        const savedIndex = sessionStorage.getItem('activeSectionIndex');
-        let currentSectionIndex = savedIndex ? parseInt(savedIndex, 10) : 0;
-        let isScrolling = false;
+      rafId = requestAnimationFrame(step);
+      updateUI(targetIndex);
+    }
 
-        // Ultra-Snappy Easing Function
-        function easeInOutExpo(t) {
-            return t === 0 ? 0 : t === 1 ? 1 : t < 0.5 ? Math.pow(2, 20 * t - 10) / 2 : (2 - Math.pow(2, -20 * t + 10)) / 2;
-        }
+    // Wheel hijack, removed automatically when you leave About
+    window.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      if (isScrolling) return;
+      if (e.deltaY > 0) smoothScrollTo(currentSectionIndex + 1);
+      else if (e.deltaY < 0) smoothScrollTo(currentSectionIndex - 1);
+    }, { passive: false, signal });
 
-        // Custom Smooth Scroll Engine
-        function smoothScrollTo(targetIndex, duration = 1200) {
-            if (isScrolling || targetIndex < 0 || targetIndex >= sections.length) return;
-            
-            isScrolling = true;
-            currentSectionIndex = targetIndex;
-            
-            // 3. Save the new index to sessionStorage whenever we scroll
-            sessionStorage.setItem('activeSectionIndex', currentSectionIndex.toString());
-            
-            const targetElement = sections[targetIndex];
-            const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY;
-            const startPosition = window.scrollY;
-            const distance = targetPosition - startPosition;
-            let startTime = null;
-
-            function animation(currentTime) {
-                if (startTime === null) startTime = currentTime;
-                const timeElapsed = currentTime - startTime;
-                const progress = Math.min(timeElapsed / duration, 1); 
-                
-                const easeProgress = easeInOutExpo(progress);
-                window.scrollTo(0, startPosition + distance * easeProgress);
-
-                if (timeElapsed < duration) {
-                    requestAnimationFrame(animation);
-                } else {
-                    setTimeout(() => { isScrolling = false; }, 50);
-                }
-            }
-            requestAnimationFrame(animation);
-            updateUI(targetIndex);
-        }
-
-        // Update Dot UI and Flip Clock
-        function updateUI(activeIndex) {
-            // Update Dots
-            dots.forEach((dot, index) => {
-                if (index === activeIndex) {
-                    dot.classList.add('active-dot');
-                } else {
-                    dot.classList.remove('active-dot');
-                }
-            });
-
-            // Update Flip Clock Counter
-            if (sectionCounter) {
-                // Translates the container up by 100% of a single number's height per index
-                sectionCounter.style.transform = `translateY(-${activeIndex * 1.2}em)`;
-            }
-        }
-
-        // Intercept Mouse Wheel / Trackpad Scrolling
-        window.addEventListener('wheel', (e) => {
-            e.preventDefault();
-            if (isScrolling) return;
-
-            if (e.deltaY > 0) {
-                smoothScrollTo(currentSectionIndex + 1);
-            } else if (e.deltaY < 0) {
-                smoothScrollTo(currentSectionIndex - 1);
-            }
-        }, { passive: false });
-
-        // Attach Click Listeners to Dots
-        const navButtons = document.querySelectorAll('.nav-dot, .next-btn');
-        navButtons.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetIndex = parseInt(btn.getAttribute('data-index'));
-                smoothScrollTo(targetIndex);
-            });
-        });
-
-        // Intersection Observer for Text Reveal ONLY
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                const reveals = entry.target.querySelectorAll('.scroll-reveal');
-                if (entry.isIntersecting) {
-                    reveals.forEach(el => el.classList.add("is-visible"));
-                }
-            });
-        }, { root: null, rootMargin: "0px", threshold: 0.3 });
-
-        sections.forEach((section) => observer.observe(section));
-        
-        // 4. On initial load, instantly snap to the saved section and update UI
-        if (sections[currentSectionIndex]) {
-            setTimeout(() => {
-                const targetPosition = sections[currentSectionIndex].getBoundingClientRect().top + window.scrollY;
-                window.scrollTo(0, targetPosition);
-                updateUI(currentSectionIndex);
-            }, 10);
-        }
+    document.querySelectorAll<HTMLElement>('.nav-dot, .next-btn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        smoothScrollTo(parseInt(btn.dataset.index ?? '0', 10));
+      }, { signal });
     });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll('.scroll-reveal')
+            .forEach((el) => el.classList.add('is-visible'));
+        }
+      });
+    }, { threshold: 0.3 });
+    sections.forEach((s) => observer.observe(s));
+
+    // Snap to the starting section
+    setTimeout(() => {
+      jumpTo(sections[currentSectionIndex].getBoundingClientRect().top + window.scrollY);
+      updateUI(currentSectionIndex);
+    }, 10);
+
+    // CLEANUP: runs while the black panels cover the screen, before the next page swaps in
+    document.addEventListener('astro:before-swap', () => {
+      controller.abort();          // removes wheel + dot listeners
+      cancelAnimationFrame(rafId); // stops any scroll animation in progress
+      observer.disconnect();
+    }, { once: true });
+  }
+
+  document.addEventListener('astro:page-load', () => {
+    const firstLoad = isInitialLoad;
+    isInitialLoad = false;
+    initAboutPage(firstLoad);
+  });
 </script>

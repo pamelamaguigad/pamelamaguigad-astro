@@ -6,7 +6,7 @@ import { ClientRouter } from 'astro:transitions';
 import "../styles/global.css";
 ---
 
-<html lang="en" class="snap-y snap-mandatory scroll-smooth">
+<html lang="en" class="snap-y snap-mandatory scroll-smooth" transition:animate="none">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -28,22 +28,114 @@ import "../styles/global.css";
         <ClientRouter />
 
 	</head>
-	<body class="bg-brand-cream font-syne">
+    
+    <body class="bg-brand-cream font-syne">
 
-		<!-- Required div for overflow on iOS -->
-        <!-- Using overflow clip for sticky elements -->
-    	<div class="w-full min-h-svh flex flex-col items-center overflow-x-clip relative">
+        <!-- Overlay: full viewport, split aligned to the centered 1920px grid -->
+        <div id="transition-overlay" transition:persist="overlay"
+            data-layout="home" data-hide="y"
+            class="fixed inset-0 z-[9999] pointer-events-none flex flex-col lg:flex-row overflow-hidden">
+            <div id="panel-left"  class="overlay-panel w-full h-1/2 lg:h-full bg-[#18181b]"></div>
+            <div id="panel-right" class="overlay-panel w-full h-1/2 lg:h-full bg-[#18181b]"></div>
+        </div>
 
-			<Header />
+        <div class="w-full min-h-svh flex flex-col items-center overflow-x-clip relative">
+            <Header />
+            <main class="w-full flex flex-col grow items-center">
+                <slot />
+            </main>
+            <FooterTest />
+        </div>
 
-            <!-- Use grow to push footer to the bottom of the viewport -->
-			<main class="w-full flex flex-col grow items-center">
-				<slot /> 
-			</main>
+    <style is:global>
+        #transition-overlay .overlay-panel {
+            flex: none;
+            transition: transform 700ms cubic-bezier(0.76, 0, 0.24, 1);
+            will-change: transform;
+        }
 
-			<FooterTest />
+        /* Used for instant (invisible) repositioning */
+        #transition-overlay.no-transition .overlay-panel { transition: none !important; }
 
-		</div>
+        /* Desktop widths: split aligns with 40% / 60% of a centered 1920px container */
+        @media (min-width: 1024px) {
+            /* Index: 40 | 60 */
+            #transition-overlay[data-layout="home"] #panel-left  { width: calc(50% - min(100%, 1920px) * 0.1); }
+            #transition-overlay[data-layout="home"] #panel-right { width: calc(50% + min(100%, 1920px) * 0.1); }
+            /* About: 60 | 40 */
+            #transition-overlay[data-layout="about"] #panel-left  { width: calc(50% + min(100%, 1920px) * 0.1); }
+            #transition-overlay[data-layout="about"] #panel-right { width: calc(50% - min(100%, 1920px) * 0.1); }
+        }
 
-	</body>
+        /* Hidden, vertical (start of exit animation) */
+        #transition-overlay[data-hide="y"] #panel-left  { transform: translateY(-100%); } /* comes down */
+        #transition-overlay[data-hide="y"] #panel-right { transform: translateY(100%); }  /* comes up */
+
+        /* Hidden, horizontal (end of enter animation) */
+        #transition-overlay[data-hide="x"] #panel-left  { transform: translateX(-100%); } /* leaves left */
+        #transition-overlay[data-hide="x"] #panel-right { transform: translateX(100%); }  /* leaves right */
+
+        /* Covering the screen: 2 IDs + 1 class, declared last, so it always wins */
+        #transition-overlay.is-active #panel-left,
+        #transition-overlay.is-active #panel-right {
+            transform: translate(0, 0);
+        }
+    </style>
+
+    <script>
+        import type { TransitionBeforePreparationEvent } from 'astro:transitions/client';
+
+        const DURATION = 700;
+        const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+        const isHome = (path: string) => path === '/' || path === '/index.html';
+        const layoutFor = (path: string) => (isHome(path) ? 'home' : 'about');
+
+        // Apply changes with transitions disabled, so the panels jump instead of animating
+        function setInstant(overlay: HTMLElement, fn: () => void) {
+            overlay.classList.add('no-transition');
+            fn();
+            void overlay.offsetWidth; // force reflow so the new position is committed
+            overlay.classList.remove('no-transition');
+        }
+
+        document.addEventListener('astro:before-preparation', (e) => {
+            const ev = e as TransitionBeforePreparationEvent;
+            const overlay = document.getElementById('transition-overlay');
+            if (!overlay) return;
+
+            const fromLayout = layoutFor(ev.from.pathname);
+            const toLayout = layoutFor(ev.to.pathname);
+            const originalLoader = ev.loader;
+
+            // 1. Quietly park the panels above/below the screen, sized for the CURRENT page
+            setInstant(overlay, () => {
+            overlay.classList.remove('is-active');
+            overlay.dataset.layout = fromLayout;
+            overlay.dataset.hide = 'y';
+            });
+
+            ev.loader = async () => {
+            // 2. Slide IN vertically
+            overlay.classList.add('is-active');
+            await Promise.all([originalLoader(), wait(DURATION)]);
+
+            // 3. Screen is fully covered: resize for the NEXT page and set the horizontal exit
+            setInstant(overlay, () => {
+                overlay.dataset.layout = toLayout;
+                overlay.dataset.hide = 'x';
+            });
+            };
+        });
+
+        document.addEventListener('astro:page-load', () => {
+            const overlay = document.getElementById('transition-overlay');
+            if (!overlay) return;
+            // 4. Wait two frames so the new page is painted, then slide OUT horizontally
+            requestAnimationFrame(() =>
+            requestAnimationFrame(() => overlay.classList.remove('is-active'))
+            );
+        });
+    </script>
+  </body>
 </html>

@@ -1,26 +1,36 @@
 ---
-// Astro frontmatter
+const pathname = Astro.url.pathname;
+// Check if the current page is the home page
+const isHome = pathname === '/' || pathname === '/index.html';
 ---
 
-<header class="w-full max-w-[1920px] mx-auto fixed top-0 left-0 right-0 z-100 flex pointer-events-none">
+<!-- Added transition-all and conditionally apply flex-row-reverse to swap the 60% and 40% containers -->
+<header
+    class:list={[
+    "w-full max-w-[1920px] mx-auto fixed top-0 left-0 right-0 z-100 flex pointer-events-none transition-all duration-700 ease-in-out",
+    { "flex-row-reverse": isHome }
+]}>
     
-    <!-- LEFT 60% CONTAINER -->
-    <!-- Added 'relative' here so the absolute logo positions correctly inside it -->
-    <div class="w-full lg:w-[60%] px-6 md:px-12 xl:px-16 2xl:px-20 py-12 flex justify-between items-center pointer-events-auto relative">
+    <!-- LEFT/RIGHT 60% CONTAINER -->
+    <!-- Conditionally apply flex-row-reverse here to swap the Menu and Language Switcher -->
+    <div class:list={[
+        "w-full lg:w-[60%] px-6 md:px-12 xl:px-16 2xl:px-20 py-12 flex justify-between items-center pointer-events-auto relative transition-all duration-700 ease-in-out",
+        { "flex-row-reverse": isHome }
+    ]}>
         
         <!-- Menu Toggle Button -->
-        <button id="mobile-menu-button" type="button" class="header-animate-down text-brand-black text-base font-bold uppercase hover:text-brand-pink transition-colors cursor-pointer relative z-100" aria-label="Toggle menu">
+        <button id="mobile-menu-button" type="button" class="header-animate-down text-brand-black text-base font-bold uppercase hover:text-brand-pink transition-all duration-700 cursor-pointer relative z-100" aria-label="Toggle menu">
             Menu
         </button>
 
         <!-- Logo / Name -->
-        <!-- Added 'absolute left-1/2 -translate-x-1/2' to keep it perfectly centered -->
-        <a href="/" class="header-animate-down header-delay-150 text-brand-black text-base font-bold font-syne uppercase tracking-wide hover:text-brand-pink transition-all duration-300 absolute left-1/2 -translate-x-1/2 z-100">
+        <!-- Remains absolute centered, so it stays in the middle of the 60% container regardless of flex direction -->
+        <a href="/" class="header-animate-down header-delay-150 text-brand-black text-base font-bold font-syne uppercase tracking-wide hover:text-brand-pink transition-all duration-700 absolute left-1/2 -translate-x-1/2 z-100">
             Pamela Maguigad
         </a>
 
         <!-- Language Switcher -->
-        <div class="header-animate-down header-delay-200 flex items-center gap-1 relative z-100">
+        <div class="header-animate-down header-delay-200 flex items-center gap-1 relative z-100 transition-all duration-700">
             <button class="text-brand-black text-base font-bold uppercase hover:text-brand-pink transition-colors cursor-pointer">
             EN
             </button>
@@ -32,8 +42,8 @@
 
     </div>
     
-    <!-- RIGHT 40% -->
-    <div class="hidden lg:block lg:w-[40%] pointer-events-none"></div>
+    <!-- EMPTY 40% CONTAINER -->
+    <div class="hidden lg:block lg:w-[40%] pointer-events-none transition-all duration-700 ease-in-out"></div>
 
 </header>
 
@@ -41,7 +51,15 @@
 <div id="mobile-overlay" class="fixed inset-0 bg-black/20 backdrop-blur-sm z-90 opacity-0 pointer-events-none transition-opacity duration-600"></div>
 
 <!-- Side Panel -->
-<aside id="mobile-panel" class="fixed top-0 left-0 h-screen w-full lg:w-[60%] bg-white shadow-2xl z-90 transform -translate-x-full transition-transform duration-500 ease-in-out flex flex-col justify-center px-12 md:px-24 lg:px-70">
+<!-- Back to 'fixed', using a calc() width to perfectly align with the 60% column of a 1920px container -->
+<aside 
+    id="mobile-panel" 
+    data-is-home={String(isHome)}
+    class:list={[
+        "fixed top-0 h-screen w-full lg:w-[calc(50%+min(100%,1920px)*0.1)] bg-white shadow-2xl z-90 transform transition-transform duration-500 ease-in-out flex flex-col justify-center px-12 md:px-24 lg:px-70",
+        isHome ? "right-0 translate-x-full" : "left-0 -translate-x-full"
+    ]}
+>
     
     <ul class="flex flex-col gap-8">
         <li class="mobile-link">
@@ -133,6 +151,8 @@
         // Safety check to ensure elements exist on the current page
         if (!menuBtn || !overlay || !mobilePanel) return;
 
+        // Check the data attribute to see if we are on the home page
+        const isHome = mobilePanel.getAttribute('data-is-home') === 'true';
         let isOpen = false;
 
         function toggleMenu() {
@@ -141,8 +161,12 @@
             // Change button text based on state
             menuBtn.textContent = isOpen ? 'Close' : 'Menu';
             
-            // Slide the panel in/out (Using -translate-x-full for left-side slide)
-            mobilePanel.classList.toggle('-translate-x-full');
+            // Slide the panel in/out from the correct side based on the page
+            if (isHome) {
+                mobilePanel.classList.toggle('translate-x-full');
+            } else {
+                mobilePanel.classList.toggle('-translate-x-full');
+            }
             
             // Toggle 'is-open' to trigger the staggered CSS animations
             mobilePanel.classList.toggle('is-open');
