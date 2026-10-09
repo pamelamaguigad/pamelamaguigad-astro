@@ -1,26 +1,42 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from '../layouts/BaseLayoutTest.astro';
 ---
 
 <BaseLayout>
     
-    <!-- Dot Navigation -->
-    <nav class="fixed right-6 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-4">
-        <button data-index="0" class="nav-dot w-2 h-2 rounded-full bg-brand-black/20 transition-all duration-300 active-dot" aria-label="Go to Hero"></button>
-        <button data-index="1" class="nav-dot w-2 h-2 rounded-full bg-brand-black/20 transition-all duration-300" aria-label="Go to Who I Am"></button>
-        <button data-index="2" class="nav-dot w-2 h-2 rounded-full bg-brand-black/20 transition-all duration-300" aria-label="Go to What I Do"></button>
-        <button data-index="3" class="nav-dot w-2 h-2 rounded-full bg-brand-black/20 transition-all duration-300" aria-label="Go to Away From The Desk"></button>
-        <button data-index="4" class="nav-dot w-2 h-2 rounded-full bg-brand-black/20 transition-all duration-300" aria-label="Go to CTA"></button>
-    </nav>
+    <!-- INVISIBLE BOUNDING BOX FOR FIXED ELEMENTS -->
+    <div class="fixed inset-0 w-full max-w-[1920px] mx-auto px-6 md:px-12 xl:px-16 2xl:px-20 pointer-events-none z-50">
+    
+        <!-- Fixed Navigation Dots -->
+        <nav class="absolute top-1/2 -translate-y-1/2 flex flex-col gap-4 pointer-events-auto">
+            <button data-index="0" class="nav-dot w-2 h-2 rounded-full bg-brand-black/20 transition-all duration-300 active-dot" aria-label="Go to Hero"></button>
+            <button data-index="1" class="nav-dot w-2 h-2 rounded-full bg-brand-black/20 transition-all duration-300" aria-label="Go to Who I Am"></button>
+            <button data-index="2" class="nav-dot w-2 h-2 rounded-full bg-brand-black/20 transition-all duration-300" aria-label="Go to What I Do"></button>
+            <button data-index="3" class="nav-dot w-2 h-2 rounded-full bg-brand-black/20 transition-all duration-300" aria-label="Go to Away From The Desk"></button>
+            <button data-index="4" class="nav-dot w-2 h-2 rounded-full bg-brand-black/20 transition-all duration-300" aria-label="Go to CTA"></button>
+        </nav>
 
-    <!-- MASTER WRAPPER: Groups sections that share the sticky image -->
+        <!-- Fixed Flip Number Counter -->
+        <div class="absolute top-20 lg:top-60 h-[1.2em] overflow-hidden text-lg text-brand-black/30 font-medium font-header leading-tight pointer-events-auto">
+            <div id="section-counter" class="flex flex-col transition-transform duration-1000 ease-in-out-expo">
+                <div class="h-[1.2em]">01</div>
+                <div class="h-[1.2em]">02</div>
+                <div class="h-[1.2em]">03</div>
+                <div class="h-[1.2em]">04</div>
+                <div class="h-[1.2em]">05</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MASTER WRAPPER -->
     <div class="w-full max-w-[1920px] mx-auto relative flex flex-col lg:flex-row">
         
         <!-- LEFT SIDE: Scrollable Content Column -->
-        <div class="w-full lg:w-[60%] flex flex-col">
+        <div class="w-full lg:w-[60%] flex flex-col pl-16 lg:pl-0">
             
             <!-- Hero Section -->
-            <section id="hero" class="scroll-section min-h-[100svh] relative z-30 flex flex-col justify-center gap-10 p-8 lg:p-20 xl:p-20">
+            <section id="hero" class="scroll-section min-h-[100svh] relative z-30 flex flex-col justify-center gap-10 p-8 lg:p-20 xl:pl-50">
                 <h1 class="leading-[90%] hero-animate-up">
                 all about Pam
                 </h1>
@@ -30,37 +46,48 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             </section>
 
             <!-- Who I Am Section -->
-            <section id="who-i-am" class="scroll-section min-h-[100svh] relative z-30 flex flex-col justify-center p-8 lg:p-20 xl:p-20">
-                
-                <article class="w-full flex flex-col lg:flex-row justify-start items-start gap-30">
-                    <div class="scroll-reveal text-lg flex justify-start text-brand-black/30 font-medium font-header leading-tight">
-                        02/05
+            <section id="who-i-am" class="scroll-section min-h-svh relative z-30 flex flex-col justify-start p-8 lg:p-20">
+                <article class="w-full flex flex-col justify-start items-start gap-12 max-w-120 mt-40 ml-30">
+                    <h2 class="scroll-reveal text-lg text-brand-black/30">Who I Am</h2>
+                    <div class="hover-text-container flex flex-col gap-6 scroll-reveal scroll-delay-100">
+                        <p class="lg:text-2xl text-brand-black font-google-sans leading-[160%]">
+                            Hi, I’m Pam, an <span class="keyword">architectural designer</span> and <span class="keyword">multidisciplinary creative</span> based in Hong Kong. My work spans across <span class="keyword">architecture</span>, <span class="keyword">visual storytelling</span>, and the <span class="keyword">web</span>. I’m interested in <span class="keyword">how people experience things</span>, how they move through a place, understand an idea, or find their next step on a website.
+                        </p>
+                        <p class="lg:text-2xl text-brand-black font-google-sans leading-[160%]">
+                            Architecture is the foundation of how I think. It has taught me to connect the bigger picture with the smallest details, work through constraints, and bring different perspectives together. That same curiosity takes me into film, visual identity, and web development—not as separate interests, but as different ways to give an idea form.
+                        </p>
                     </div>
-                    <div class="flex flex-col justify-start item-start gap-12 max-w-120">
-                        <h2 class="scroll-reveal text-lg text-brand-black/30">Who I Am</h2>
-                        <div class="hover-text-container max-w-3xl flex flex-col gap-6 scroll-reveal scroll-delay-100">
-                            <p class="lg:text-2xl text-brand-black font-google-sans leading-[160%]">
-                                Hi, I’m Pam, an <span class="keyword">architectural designer</span> and <span class="keyword">multidisciplinary creative</span> based in Hong Kong. My work spans across <span class="keyword">architecture</span>, <span class="keyword">visual storytelling</span>, and the <span class="keyword">web</span>. I’m interested in <span class="keyword">how people experience things</span>, how they move through a place, understand an idea, or find their next step on a website.
-                            </p>
-                            <p class="lg:text-2xl text-brand-black font-google-sans leading-[160%]">
-                                Architecture is the foundation of how I think. It has taught me to connect the bigger picture with the smallest details, work through constraints, and bring different perspectives together. That same curiosity takes me into film, visual identity, and web development—not as separate interests, but as different ways to give an idea form.
-                            </p>
-                        </div>
-                    </div>
-                    
                 </article>
             </section>
 
             <!-- What I Do Section -->
-            <section id="what-i-do" class="scroll-section min-h-[100svh] relative z-30 flex flex-col justify-center p-8 lg:p-20 xl:p-32">
-                <article class="w-full flex flex-col justify-start items-start gap-12">
+            <section id="what-i-do" class="scroll-section min-h-svh relative z-30 flex flex-col justify-start p-8 lg:p-20">
+                <article class="w-full flex flex-col justify-start items-start gap-12 max-w-120 mt-40 ml-30">
                     <h2 class="scroll-reveal text-lg text-brand-black/30">What I Do</h2>
-                    <div class="max-w-3xl flex flex-col gap-4 scroll-reveal scroll-delay-100">
-                        <p class="lg:text-2xl pb-6 text-brand-black font-google-sans">At my current professional practice, I work on commercial and mixed-use architecture, including large-scale luxury retail developments. My role combines design development, coordination, and visual communication.</p>
-                        <p class="lg:text-2xl pb-6 text-brand-black font-google-sans">My work also extends into the stories around those spaces. I’ve directed and produced architectural pitch films and helped develop exhibition concepts into physical installations through supplier and organiser coordination.</p>
-                        <p class="lg:text-2xl pb-6 text-brand-black font-google-sans">Alongside architecture, I design and build for the web. For my recent web project, I brought visual identity, copy, website design, and development together in a live multilingual website.</p>
+                    <div class="hover-text-container flex flex-col gap-6 scroll-reveal scroll-delay-100">
+                        <p class="lg:text-2xl text-brand-black font-google-sans leading-[160%]">At my current professional practice, I work on commercial and mixed-use architecture, including large-scale luxury retail developments. My role combines design development, coordination, and visual communication.</p>
+                        <p class="lg:text-2xl text-brand-black font-google-sans leading-[160%]">My work also extends into the stories around those spaces. I’ve directed and produced architectural pitch films and helped develop exhibition concepts into physical installations through supplier and organiser coordination.</p>
+                        <p class="lg:text-2xl text-brand-black font-google-sans leading-[160%]">Alongside architecture, I design and build for the web. For my recent web project, I brought visual identity, copy, website design, and development together in a live multilingual website.</p>
                     </div>
                 </article>
+            </section>
+
+            <!-- Away From The Desk Section -->
+            <section id="away-from-desk" class="scroll-section min-h-svh relative z-30 flex flex-col justify-start p-8 lg:p-20">
+                <article class="w-full flex flex-col justify-start items-start gap-12 max-w-120 mt-40 ml-30">
+                    <h2 class="scroll-reveal text-lg text-brand-black/30">Away From The Desk</h2>
+                    <div class="max-w-3xl flex flex-col gap-4 scroll-reveal scroll-delay-100">
+                        <p class="lg:text-2xl text-brand-black font-google-sans leading-[160%]">Making time away from the screen keeps life balanced. I’m a fitness enthusiast and runner, and I’m happiest when there’s a trail or mountain in the plan. I’ve taken part in the MoonTrekker night race, summited Mount Kinabalu, and done volunteer work in the mountains of Nepal.</p>
+                        <p class="lg:text-2xl text-brand-black font-google-sans leading-[160%]">Travel is another constant interest. I like exploring how cities fit together, noticing the buildings and everyday spaces that give a place its character, and experiencing different cultures beyond the itinerary.</p>
+                        <p class="lg:text-2xl text-brand-black font-google-sans leading-[160%]">I’m also an avid language learner, currently working towards C1 French from B2. Between design, travel, and languages, there’s always something new to understand.</p>
+                    </div>
+                </article>
+            </section>
+
+            <!-- CTA Section -->
+            <section id="cta" class="scroll-section min-h-[100svh] relative z-30 flex flex-col justify-center p-8 lg:p-20 xl:pl-50 overflow-clip">
+                <p class="self-stretch text-left justify-start text-zinc-900 text-[28px] sm:text-[36px] md:text-[40px] font-normal font-header leading-tight">See how this translates into my work.</p>
+                <p class="self-stretch text-left justify-start text-zinc-900 text-[28px] sm:text-[36px] md:text-[40px] font-medium font-header underline leading-tight"><a href="/cv" class="hover:text-brand-pink transition-colors">View my experience</a></p>
             </section>
 
         </div>
@@ -76,24 +103,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </div>
     <!-- END MASTER WRAPPER -->
 
-    <!-- Away From The Desk Section (Image will scroll away when reaching here) -->
-    <section id="away-from-desk" class="scroll-section min-h-[100svh] w-full max-w-[1920px] mx-auto relative z-30 flex flex-col justify-center px-10 md:px-12 lg:px-16 2xl:px-20 py-16 overflow-hidden">
-        <article class="w-full flex flex-col justify-start items-start gap-10">
-            <h2 class="scroll-reveal">Away From The Desk</h2>
-            <div class="max-w-3xl flex flex-col gap-4 scroll-reveal scroll-delay-100">
-                <p>Making time away from the screen keeps life balanced. I’m a fitness enthusiast and runner, and I’m happiest when there’s a trail or mountain in the plan. I’ve taken part in the MoonTrekker night race, summited Mount Kinabalu, and done volunteer work in the mountains of Nepal.</p>
-                <p>Travel is another constant interest. I like exploring how cities fit together, noticing the buildings and everyday spaces that give a place its character, and experiencing different cultures beyond the itinerary.</p>
-                <p>I’m also an avid language learner, currently working towards C1 French from B2. Between design, travel, and languages, there’s always something new to understand.</p>
-            </div>
-        </article>
-    </section>
-
-    <!-- CTA Section -->
-    <section id="cta" class="scroll-section min-h-[100svh] w-full max-w-[1920px] mx-auto relative z-30 flex flex-col justify-center gap-3 px-6 md:px-12 lg:px-16 2xl:px-20 py-16 scroll-reveal">
-        <p class="self-stretch text-right justify-start text-zinc-900 text-[28px] sm:text-[36px] md:text-[40px] font-normal font-header leading-tight">See how this translates into my work.</p>
-        <p class="self-stretch text-right justify-start text-zinc-900 text-[28px] sm:text-[36px] md:text-[40px] font-medium font-header underline leading-tight"><a href="/cv" class="hover:text-brand-pink transition-colors">View my experience ↗</a></p>
-    </section>
-
 </BaseLayout>
 
 <style>
@@ -101,6 +110,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     .active-dot {
         background-color: #18181b; /* zinc-900 */
         transform: scale(1.2);
+    }
+
+    /* Custom Easing for Flip Clock */
+    .ease-in-out-expo {
+        transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     /* --- Hero Load Animations --- */
@@ -164,41 +178,41 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 </style>
 
 <script>
-    document.addEventListener("astro:page-load", () => {
-
-        // --- WORD HOVER EFFECT SCRIPT ---
+    function initWordHover() {
         const textContainers = document.querySelectorAll('.hover-text-container p');
-
+        
         textContainers.forEach(p => {
-            // Get all the contents of the paragraph (text nodes and span elements)
+            if (p.dataset.wrapped) return;
+            p.dataset.wrapped = "true";
+
             const childNodes = Array.from(p.childNodes);
             let newHTML = '';
             
             childNodes.forEach(node => {
-                // If it's a normal text node, split it into words
                 if (node.nodeType === Node.TEXT_NODE) {
-                    // Split by spaces but keep the spaces intact in the array
                     const words = node.textContent.split(/(\s+)/); 
                     words.forEach(word => {
                         if (word.trim().length > 0) {
-                            // Wrap actual words in our hover class
                             newHTML += `<span class="hover-word">${word}</span>`;
                         } else {
-                            // Keep spaces as normal text so formatting doesn't break
                             newHTML += word; 
                         }
                     });
                 } else {
-                    // If it's an HTML element (like our .keyword span), leave it exactly as is
                     newHTML += node.outerHTML;
                 }
             });
             
-            // Replace the paragraph's content with our newly wrapped words
             p.innerHTML = newHTML;
         });
-        // --- END WORD HOVER EFFECT SCRIPT ---
+    }
+
+    initWordHover();
+
+    document.addEventListener("astro:page-load", () => {
         
+        initWordHover();
+
         // 1. Prevent the browser from natively restoring scroll position on refresh
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
@@ -206,6 +220,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
         const sections = Array.from(document.querySelectorAll('.scroll-section'));
         const dots = document.querySelectorAll('.nav-dot');
+        const sectionCounter = document.getElementById('section-counter');
         
         // 2. Retrieve the saved section index from sessionStorage (default to 0 if none exists)
         const savedIndex = sessionStorage.getItem('activeSectionIndex');
@@ -248,11 +263,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 }
             }
             requestAnimationFrame(animation);
-            updateDots(targetIndex);
+            updateUI(targetIndex);
         }
 
-        // Update Dot UI
-        function updateDots(activeIndex) {
+        // Update Dot UI and Flip Clock
+        function updateUI(activeIndex) {
+            // Update Dots
             dots.forEach((dot, index) => {
                 if (index === activeIndex) {
                     dot.classList.add('active-dot');
@@ -260,6 +276,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                     dot.classList.remove('active-dot');
                 }
             });
+
+            // Update Flip Clock Counter
+            if (sectionCounter) {
+                // Translates the container up by 100% of a single number's height per index
+                sectionCounter.style.transform = `translateY(-${activeIndex * 1.2}em)`;
+            }
         }
 
         // Intercept Mouse Wheel / Trackpad Scrolling
@@ -296,13 +318,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
         sections.forEach((section) => observer.observe(section));
         
-        // 4. On initial load, instantly snap to the saved section and update dots
+        // 4. On initial load, instantly snap to the saved section and update UI
         if (sections[currentSectionIndex]) {
-            // Use a slight timeout to ensure Astro/browser layout is fully painted before jumping
             setTimeout(() => {
                 const targetPosition = sections[currentSectionIndex].getBoundingClientRect().top + window.scrollY;
                 window.scrollTo(0, targetPosition);
-                updateDots(currentSectionIndex);
+                updateUI(currentSectionIndex);
             }, 10);
         }
     });
