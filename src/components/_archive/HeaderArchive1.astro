@@ -1,0 +1,217 @@
+---
+// Astro frontmatter
+---
+
+<header class="w-full max-w-[1920px] fixed top-0 center-0 z-50 px-6 md:px-12 xl:px-16 2xl:px-20 py-12 flex justify-between items-center bg-transparent">
+  
+    <!-- Logo / Name -->
+    <a id="main-logo" href="/" class="header-animate-down text-brand-black text-base font-bold font-syne uppercase tracking-wide hover:text-brand-pink transition-all duration-300 relative z-50">
+        Pamela Maguigad
+    </a>
+
+    <!-- Navigation -->
+    <nav>
+        <!-- Desktop Menu -->
+        <ul class="max-lg:hidden flex items-center gap-6 md:gap-8">
+            <li class="header-animate-down header-delay-100">
+                <a href="/" class="text-brand-black text-base font-bold uppercase hover:text-brand-pink transition-colors">
+                Home
+                </a>
+            </li>
+            <li class="header-animate-down header-delay-150">
+                <a href="/about" class="text-brand-black text-base font-bold uppercase hover:text-brand-pink transition-colors">
+                About
+                </a>
+            </li>
+            <li class="header-animate-down header-delay-200">
+                <a href="/cv" class="text-brand-black text-base font-bold uppercase hover:text-brand-pink transition-colors">
+                CV
+                </a>
+            </li>
+            <li class="header-animate-down header-delay-250">
+                <a href="/contact" class="text-brand-black text-base font-bold uppercase hover:text-brand-pink transition-colors">
+                Contact
+                </a>
+            </li>
+
+            <!-- Language Switcher -->
+            <li class="header-animate-down header-delay-300 flex items-center gap-1 ml-2 md:ml-4">
+                <button class="text-brand-black text-base font-bold uppercase hover:text-brand-pink transition-colors cursor-pointer">
+                EN
+                </button>
+                <span class="text-brand-black/30 text-base font-bold uppercase">/</span>
+                <button class="text-brand-black/30 text-base font-bold uppercase hover:text-brand-pink transition-colors cursor-pointer">
+                FR
+                </button>
+            </li>
+        </ul>
+
+        <!-- Hamburger Menu Button -->
+        <button id="mobile-menu-button" type="button" class="header-animate-fade header-delay-200 lg:hidden cursor-pointer flex items-center group relative z-50" aria-label="Open menu">
+            <div class="w-6 h-4 flex flex-col justify-between relative">
+                <!-- Top line -->
+                <span class="w-3/4 h-[3px] bg-brand-black group-hover:w-full group-hover:bg-brand-pink self-end transition-all duration-300 origin-center group-[.open]:w-full group-[.open]:rotate-45 group-[.open]:translate-y-[6.5px]"></span>
+                
+                <!-- Middle line -->
+                <span class="w-full h-[3px] bg-brand-black group-hover:bg-brand-pink transition-all duration-300 group-[.open]:opacity-0"></span>
+                
+                <!-- Bottom line -->
+                <span class="w-3/4 h-[3px] bg-brand-black group-hover:w-full group-hover:bg-brand-pink self-start transition-all duration-300 origin-center group-[.open]:w-full group-[.open]:-rotate-45 group-[.open]:-translate-y-[6.5px]"></span>
+            </div>
+        </button>
+    </nav>
+</header>
+
+<!-- Mobile Menu Overlay -->
+<div id="mobile-overlay" class="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 opacity-0 pointer-events-none transition-opacity duration-300 lg:hidden"></div>
+
+<!-- Mobile Side Panel -->
+<aside id="mobile-panel" class="fixed top-0 right-0 h-screen w-3/4 max-w-sm bg-white shadow-2xl z-40 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col justify-center px-10 lg:hidden">
+    
+    <!-- Mobile Panel Logo (Aligned with nav links, same Y-axis as main logo) -->
+    <a href="/" class="mobile-logo absolute top-12 left-10 text-brand-black text-base font-bold font-syne uppercase tracking-wide hover:text-brand-pink transition-colors">
+        Pamela Maguigad
+    </a>
+
+    <ul class="flex flex-col gap-8">
+        <li class="mobile-link">
+            <a href="/" class="text-brand-black text-2xl font-bold uppercase hover:text-brand-pink transition-colors">
+            Home
+            </a>
+        </li>
+        <li class="mobile-link">
+            <a href="/about" class="text-brand-black text-2xl font-bold uppercase hover:text-brand-pink transition-colors">
+            About
+            </a>
+        </li>
+        <li class="mobile-link">
+            <a href="/cv" class="text-brand-black text-2xl font-bold uppercase hover:text-brand-pink transition-colors">
+            CV
+            </a>
+        </li>
+        <li class="mobile-link">
+            <a href="/contact" class="text-brand-black text-2xl font-bold uppercase hover:text-brand-pink transition-colors">
+            Contact
+            </a>
+        </li>
+        
+        <!-- Mobile Language Switcher -->
+        <li class="mobile-link flex items-center gap-2 mt-4 pt-8 border-t border-gray-200">
+            <button class="text-brand-black text-xl font-bold uppercase hover:text-brand-pink transition-colors cursor-pointer">
+            EN
+            </button>
+            <span class="text-brand-black/30 text-xl font-bold uppercase">/</span>
+            <button class="text-brand-black/30 text-xl font-bold uppercase hover:text-brand-pink transition-colors cursor-pointer">
+            FR
+            </button>
+        </li>
+    </ul>
+</aside>
+
+<style>
+    /* --- Header Load Animations --- */
+    .header-animate-down {
+        opacity: 0;
+        animation: fadeDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    
+    .header-animate-fade {
+        opacity: 0;
+        animation: fadeIn 1s ease-out forwards;
+    }
+
+    /* Stagger delays for desktop nav items */
+    .header-delay-100 { animation-delay: 100ms; }
+    .header-delay-150 { animation-delay: 150ms; }
+    .header-delay-200 { animation-delay: 200ms; }
+    .header-delay-250 { animation-delay: 250ms; }
+    .header-delay-300 { animation-delay: 300ms; }
+
+    @keyframes fadeDown {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    /* --- Main Logo Hide Override --- */
+    #main-logo.menu-open {
+        opacity: 0 !important;
+        pointer-events: none !important;
+    }
+
+    /* --- Mobile Panel Logo Animation --- */
+    .mobile-logo {
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    #mobile-panel.is-open .mobile-logo {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: 150ms; /* Appears just before the links */
+    }
+
+    /* --- Mobile Menu Link Staggered Animations --- */
+    .mobile-link {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* When the panel gets the 'is-open' class via JS, animate the links in */
+    #mobile-panel.is-open .mobile-link {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Stagger the mobile links appearing */
+    #mobile-panel.is-open .mobile-link:nth-child(1) { transition-delay: 200ms; }
+    #mobile-panel.is-open .mobile-link:nth-child(2) { transition-delay: 250ms; }
+    #mobile-panel.is-open .mobile-link:nth-child(3) { transition-delay: 300ms; }
+    #mobile-panel.is-open .mobile-link:nth-child(4) { transition-delay: 350ms; }
+    #mobile-panel.is-open .mobile-link:nth-child(5) { transition-delay: 400ms; }
+</style>
+
+<!-- JavaScript to handle toggling -->
+<!-- JavaScript to handle toggling -->
+<script>
+    document.addEventListener('astro:page-load', () => {
+        // Add the '!' at the end of each getElementById to satisfy TypeScript
+        const mainLogo = document.getElementById('main-logo')!;
+        const menuBtn = document.getElementById('mobile-menu-button')!;
+        const mobilePanel = document.getElementById('mobile-panel')!;
+        const overlay = document.getElementById('mobile-overlay')!;
+
+        // Safety check to ensure elements exist on the current page
+        if (!menuBtn || !overlay || !mobilePanel || !mainLogo) return;
+
+        function toggleMenu() {
+            // Toggle custom class to hide the main logo (overriding the animation lock)
+            mainLogo.classList.toggle('menu-open');
+
+            // Toggle the 'open' class on the button for the X animation
+            menuBtn.classList.toggle('open');
+            
+            // Slide the panel in/out
+            mobilePanel.classList.toggle('translate-x-full');
+            
+            // Toggle 'is-open' to trigger the staggered CSS animations on the links and mobile logo
+            mobilePanel.classList.toggle('is-open');
+            
+            // Fade the overlay in/out
+            overlay.classList.toggle('opacity-0');
+            overlay.classList.toggle('pointer-events-none');
+        }
+
+        // Add click events to both the button and the dark overlay
+        menuBtn.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', toggleMenu);
+    });
+</script>

@@ -1,6 +1,6 @@
 ---
 import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import FooterTest from '../components/FooterTest.astro';
 import { Font } from 'astro:assets';
 import { ClientRouter } from 'astro:transitions';
 import "../styles/global.css";
@@ -34,12 +34,6 @@ import "../styles/global.css";
         <!-- Using overflow clip for sticky elements -->
     	<div class="w-full min-h-svh flex flex-col items-center overflow-x-clip relative">
 
-			<div class="w-[3249px] h-[781px] left-[-200px] top-[-360px] absolute z-20 pointer-events-none">
-				<img 
-					src="/assets/brand-background-overlay.svg" 
-				/>
-			</div>
-
 			<Header />
 
             <!-- Use grow to push footer to the bottom of the viewport -->
@@ -47,7 +41,7 @@ import "../styles/global.css";
 				<slot /> 
 			</main>
 
-			<Footer />
+			<FooterTest />
 
 		</div>
 
